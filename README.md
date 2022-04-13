@@ -9,8 +9,16 @@ Supported tools are
 - `curl`
 - `wget` (planned)
 
+## General logic of the template
+
+```make
+_:=$(or $(wildcard $(THE_FILE)), $(shell $(FETCH_FILE_COMMAND)))
+include $(THE_FILE)
+```
+
 ## Using curl
 
 ```make
-### Some magic goes here
+_:=$(or $(wildcard makeutils.bootstrap-master), $(shell curl -so makeutils.bootstrap-master https://raw.githubusercontent.com/makeutils/makeutil-bootstrap/master/makeutil-bootstrap.mak))
+include makeutils.bootstrap-master
 ```
