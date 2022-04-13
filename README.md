@@ -33,7 +33,7 @@ Example for this very module
 https://github.com/makeutils/makeutil-bootstrap/blob/master/makeutil-bootstrap.mak
 ```
 
-The tackage name is `bootstrap` and the version is `master`, resulting in the following pattern
+The package name is `bootstrap` and the version is `master`, resulting in the following pattern
 
 ```text
 https://github.com/makeutils/makeutil-$(NAME)/blob/$(VERSION)/makeutil-$(NAME).mak
