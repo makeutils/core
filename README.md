@@ -22,3 +22,25 @@ include $(THE_FILE)
 _:=$(or $(wildcard makeutils.bootstrap-master), $(shell curl -so makeutils.bootstrap-master https://raw.githubusercontent.com/makeutils/makeutil-bootstrap/master/makeutil-bootstrap.mak))
 include makeutils.bootstrap-master
 ```
+
+## importing packages
+
+Packages follow a naming convention using a package name and a version which can be a branch or tag in git.
+
+Example for this very module
+
+```text
+https://github.com/makeutils/makeutil-bootstrap/blob/master/makeutil-bootstrap.mak
+```
+
+The tackage name is `bootstrap` and the version is `master`, resulting in the following pattern
+
+```text
+https://github.com/makeutils/makeutil-$(NAME)/blob/$(VERSION)/makeutil-$(NAME).mak
+```
+
+Could be imported in your make file if you use the following command after the snippet provided above for the manual bootstrap.
+
+```make
+include $(call .include,bootstrap,master)
+```
