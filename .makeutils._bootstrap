@@ -26,9 +26,9 @@
 # ____________________________________________________________________________
 
 ifndef .download
-  MAKEUTILS_HTTPTOOL_SOURCE:=requested
+  MAKEUTILS_HTTPTOOL_SOURCE?=requested
   ifndef MAKEUTILS_HTTPTOOL
-    $(error You need to define MAKEUTILS_HTTPTOOL or provide a custom .download function)
+    $(error You need to define MAKEUTILS_HTTPTOOL or provide a custom .download function. If you use the autoloader, then possibly no curl or wget are installed)
   else ifeq ($(MAKEUTILS_HTTPTOOL),curl)
     .download=$(shell curl -so "$(2)" "$(1)")
   else ifeq ($(MAKEUTILS_HTTPTOOL),wget)
