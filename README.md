@@ -1,34 +1,38 @@
 # make: utils core
 
-Central logic for bootstrapping `make:utils` and loading the core logic.
+Core logic for enabling `make:utils` in your project.
 
-The recommended way is to use the auto loader method which will automatically detect `curl` or `wget` in your system and use it transparently.
+## Bootstrapping
 
-It is also possible to request a specific download tool with the downside of builds failing if such tool is not present in the target system.
+You need to choose one of the available loaders. A loader is responsible of properly bootstrapping `make:utils`.
 
-## `wget` loader
+A copy of the loader you choose must be committed as part of your project, either as a separate file or copied inside your Makefile. The examples in this documentation are based on the recommendation of using a separate file for it.
 
-You can either copy the following lines into your own Makefile
+### Auto loader
+
+This is re recommended loader. It will automatically detect `curl` or `wget` in your system and use it transparently.
+
+Download the file [Makeutils.autoloader](./Makeutils.autoloader) into your project and include it from the Makefile.
 
 ```make
-include $(or $(wildcard .makeutils._wget),$(shell wget -q https://raw.githubusercontent.com/makeutils/core/master/.makeutils._wget).makeutils._wget)
+include Makeutils.autoloader
 ```
 
-Or you can download the file [Makeutils.wgetloader](./Makeutils.wgetloader) into your project and include it from the Makefile
+The downside of the auto loader is that it's not a simple one-liner when compared to the specific curl/wget loaders.
+
+You may opt to use one of the specific loaders if you know that the environment your Makefile will run can guarantee the presence of your HTTP tool of choice.
+
+### `wget` loader
+
+Download the file [Makeutils.wgetloader](./Makeutils.wgetloader) into your project and include it from the Makefile.
 
 ```make
 include Makeutils.wgetloader
 ```
 
-## `curl` loader
+### `curl` loader
 
-You can either copy the following lines into your own Makefile
-
-```make
-include $(or $(wildcard .makeutils._curl),$(shell curl -sO https://raw.githubusercontent.com/makeutils/core/master/.makeutils._curl).makeutils._curl)
-```
-
-Or you can download the file [Makeutils.curlloader](./Makeutils.curlloader) into your project and include it from the Makefile
+Download the file [Makeutils.curlloader](./Makeutils.curlloader) into your project and include it from the Makefile.
 
 ```make
 include Makeutils.curlloader
