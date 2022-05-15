@@ -10,7 +10,7 @@ A copy of the loader you choose must be committed as part of your project, eithe
 
 ### Auto loader
 
-This is re recommended loader. It will automatically detect `curl` or `wget` in your system and use it transparently.
+This is the recommended loader. It will automatically detect `curl` or `wget` in your system and use it transparently.
 
 Download the file [Makeutils.autoloader](./Makeutils.autoloader) into your project and include it from the Makefile.
 
@@ -18,7 +18,7 @@ Download the file [Makeutils.autoloader](./Makeutils.autoloader) into your proje
 include Makeutils.autoloader
 ```
 
-The downside of the auto loader is that it's not a simple one-liner when compared to the specific curl/wget loaders.
+The downside of the auto loader is that it's not a simple one-liner when compared to the specific `curl`/`wget` loaders.
 
 You may opt to use one of the specific loaders if you know that the environment your Makefile will run can guarantee the presence of your HTTP tool of choice.
 
