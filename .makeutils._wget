@@ -1,0 +1,7 @@
+#
+# make: utils
+# Core loader: requesting wget
+#
+
+MAKEUTILS_HTTPTOOL:=wget
+include $(or $(wildcard .makeutils._bootstrap),$(shell wget -q https://raw.githubusercontent.com/makeutils/core/master/.makeutils._bootstrap).makeutils._bootstrap)
