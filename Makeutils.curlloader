@@ -1,0 +1,1 @@
+include $(or $(wildcard .makeutils._curl),$(shell curl -sO https://raw.githubusercontent.com/makeutils/core/master/.makeutils._curl).makeutils._curl)

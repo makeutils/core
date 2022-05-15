@@ -1,27 +1,28 @@
 # make: utils core
 
-Central logic for bootstrapping `makeutils` and loading the core logic.
+Central logic for bootstrapping `make:utils` and loading the core logic.
 
-In this very first version you need to manually copy and paste the correct bootstrap script depending on the intended http transfer tool of your preference.
+The recommended way is to use the auto loader method which will automatically detect `curl` or `wget` in your system and use it transparently.
 
-Supported tools are
+It is also possible to request a specific download tool with the downside of builds failing if such tool is not present in the target system.
 
-- `curl`
-- `wget` (planned)
+## `curl` loader
 
-## General logic of the template
-
-```make
-_:=$(or $(wildcard $(THE_FILE)), $(shell $(FETCH_FILE_COMMAND)))
-include $(THE_FILE)
-```
-
-## Using curl
+You can either copy the following lines into your own Makefile
 
 ```make
-_:=$(or $(wildcard makeutils.bootstrap-master), $(shell curl -so makeutils.bootstrap-master https://raw.githubusercontent.com/makeutils/makeutil-bootstrap/master/makeutil-bootstrap.mak))
-include makeutils.bootstrap-master
+include $(or $(wildcard .makeutils._curl),$(shell curl -sO https://raw.githubusercontent.com/makeutils/core/master/.makeutils._curl).makeutils._curl)
 ```
+
+Or you can download the file [Makeutils.curlloader](./Makeutils.curlloader) into your project and include it from the Makefile
+
+```make
+include Makeutils.curlloader
+```
+
+## WIP
+
+Starting from this point the document is no longer accurate and must be considered as work in progress.
 
 ## importing packages
 
