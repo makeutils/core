@@ -6,6 +6,20 @@ The recommended way is to use the auto loader method which will automatically de
 
 It is also possible to request a specific download tool with the downside of builds failing if such tool is not present in the target system.
 
+## `wget` loader
+
+You can either copy the following lines into your own Makefile
+
+```make
+include $(or $(wildcard .makeutils._wget),$(shell wget -q https://raw.githubusercontent.com/makeutils/core/master/.makeutils._wget).makeutils._wget)
+```
+
+Or you can download the file [Makeutils.wgetloader](./Makeutils.wgetloader) into your project and include it from the Makefile
+
+```make
+include Makeutils.wgetloader
+```
+
 ## `curl` loader
 
 You can either copy the following lines into your own Makefile
