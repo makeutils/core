@@ -1,0 +1,48 @@
+#
+# make: utils
+# Core logic bootstrap
+#
+# There are two ways to properly load and setup this bootstrap module:
+#
+# 1) You provide an implementation of a ".download" $(call) function
+# respecting the following conditions:
+#
+# - parameter $(1) is the URL to read from
+# - parameter $(2) is the file to store the contents to
+# - The function must be fully silent, no output to STDERR or STDOUT
+#
+# 2) provide the name of one of the known and preconfigured download tools
+# in the variable "MAKEUTILS_HTTPTOOL", accepted options are:
+#
+# - MAKEUTILS_HTTPTOOL=curl
+# - MAKEUTILS_HTTPTOOL=wget
+#
+# One of those options must be defined before you include this file into your
+# own main Makefile.
+#
+# Hint: You may want to visit https://github.com/makeutils/core and use one
+# of the pre configured loaders.
+#
+# ____________________________________________________________________________
+
+ifndef .download
+  MAKEUTILS_HTTPTOOL_SOURCE:=requested
+  ifndef MAKEUTILS_HTTPTOOL
+    $(error You need to define MAKEUTILS_HTTPTOOL or provide a custom .download function)
+  else ifeq ($(MAKEUTILS_HTTPTOOL),curl)
+    .download=$(shell curl -so "$(2)" "$(1)")
+  else ifeq ($(MAKEUTILS_HTTPTOOL),wget)
+    .download=$(shell wget -qO "$(2)" "$(1)")
+  else
+    $(error Invalid value in MAKEUTILS_HTTPTOOL, valid values are wget,curl)
+  endif
+else
+  MAKEUTILS_HTTPTOOL?=custom
+  MAKEUTILS_HTTPTOOL_SOURCE?=provided
+endif
+
+makeutils.about:
+	@echo "[ about         ] make: utils"
+	@echo "[ project page  ] https://makeutils.github.io"
+	@echo "[ download tool ] $(MAKEUTILS_HTTPTOOL) ($(MAKEUTILS_HTTPTOOL_SOURCE))"
+

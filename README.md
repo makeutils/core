@@ -1,4 +1,4 @@
-# makeutil-bootstrap
+# make: utils core
 
 Central logic for bootstrapping `makeutils` and loading the core logic.
 
