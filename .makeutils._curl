@@ -1,7 +1,0 @@
-#
-# make: utils
-# Core loader: requesting curl
-#
-
-MAKEUTILS_HTTPTOOL:=curl
-include $(or $(wildcard .makeutils._bootstrap),$(shell curl -sO https://raw.githubusercontent.com/makeutils/core/master/.makeutils._bootstrap).makeutils._bootstrap)

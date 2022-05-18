@@ -1,0 +1,4 @@
+ifeq ($(wildcard .makeutils/bootstrap.curl),)
+  $(shell curl --create-dirs -so .makeutils/bootstrap.curl https://raw.githubusercontent.com/makeutils/core/master/bootstrap.curl)
+endif
+include .makeutils/bootstrap.curl
