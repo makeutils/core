@@ -1,5 +1,5 @@
 MAKEUTILS_HTTPTOOL:=curl
 ifeq ($(wildcard .makeutils/bootstrap.core),)
-$(shell curl -so .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
+  $(shell curl -so .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
 endif
 include .makeutils/bootstrap.core

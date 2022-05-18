@@ -1,0 +1,5 @@
+MAKEUTILS_HTTPTOOL:=wget
+ifeq ($(wildcard .makeutils/bootstrap.core),)
+  $(shell wget -qO .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
+endif
+include .makeutils/bootstrap.core

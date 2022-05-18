@@ -1,0 +1,4 @@
+ifeq ($(wildcard .makeutils/bootstrap.wget),)
+  $(shell wget -q --directory-prefix=.makeutils https://raw.githubusercontent.com/makeutils/core/master/bootstrap.wget)
+endif
+include .makeutils/bootstrap.wget

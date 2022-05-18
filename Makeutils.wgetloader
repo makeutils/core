@@ -1,1 +1,0 @@
-include $(or $(wildcard .makeutils._wget),$(shell wget -q https://raw.githubusercontent.com/makeutils/core/master/.makeutils._wget).makeutils._wget)
