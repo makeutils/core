@@ -2,6 +2,10 @@
 
 Core logic for enabling `make:utils` in your project.
 
+## WORK IN PROGRESS
+
+This is work in progress and breaking changes are happening.
+
 ## Bootstrapping
 
 You need to choose one of the available loaders. A loader is responsible of properly bootstrapping `make:utils`.
