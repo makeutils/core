@@ -1,21 +1,15 @@
-ifeq ($(wildcard .makeutils),)
-  $(shell mkdir .makeutils)
-endif
-
-ifeq ($(wildcard .makeutils/bootstrap.detected),)
+ifneq ($(words $(wildcard .makeutils/bootstrap.detected .makeutils/bootstrap.core)),2)
   ._aadetect=$(and $(wildcard $(addsuffix /$(1),$(subst :, ,$(PATH))) $(addsuffix /$(1).exe,$(subst ;, ,$(PATH)))),$(1))
-  $(file > .makeutils/bootstrap.detected,MAKEUTILS_HTTPTOOL:=$(word 1,$(call ._aadetect,curl) $(call ._aadetect,wget)))
-  $(file >> .makeutils/bootstrap.detected,MAKEUTILS_HTTPTOOL_SOURCE:=detected)
-endif
-include .makeutils/bootstrap.detected
-
-ifeq ($(wildcard .makeutils/bootstrap.core),)
+  MAKEUTILS_HTTPTOOL:=$(word 1,$(call ._aadetect,curl) $(call ._aadetect,wget))
   ifeq ($(MAKEUTILS_HTTPTOOL),wget)
-    $(shell wget -qO .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
+    $(shell wget -q --directory-prefix=.makeutils https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
   else ifeq ($(MAKEUTILS_HTTPTOOL),curl)
-    $(shell curl -so .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
+    $(shell curl --create-dirs -so .makeutils/bootstrap.core https://raw.githubusercontent.com/makeutils/core/master/bootstrap.core)
   else
     $(error $(MAKEUTILS_HTTPTOOL): HTTP tool not found or not supported)
   endif
+  $(file > .makeutils/bootstrap.detected,MAKEUTILS_HTTPTOOL:=$(MAKEUTILS_HTTPTOOL))
+  $(file >> .makeutils/bootstrap.detected,MAKEUTILS_HTTPTOOL_SOURCE:=detected)
 endif
+include .makeutils/bootstrap.detected
 include .makeutils/bootstrap.core
