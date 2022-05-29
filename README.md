@@ -1,46 +1,50 @@
-# make: utils core
+# make:utils core
 
-Core logic for enabling `make:utils` in your project.
+**ATTENTION: THIS IS WORK IN PROGRESS. BREAKING CHANGES ARE STILL HAPPENING.**
 
-## WORK IN PROGRESS
+Welcome! Here you will learn how to bootstrap and enable `make:utils` in your project.
 
-This is work in progress and breaking changes are happening.
+The `make:utils` project is about reusability and modular composition for make files. Find out more in [makeutils.github.io](https://makeutils.github.io/).
 
-## Bootstrapping
+## Initial considerations and relevant files
 
-You need to choose one of the available loaders. A loader is responsible of properly bootstrapping `make:utils`.
+Integrating `make:utils` requires the introduction of a few extraneous elements into your own Makefile and project: Basically choosing and including a `make:utils` loader.
 
-A copy of the loader you choose must be committed as part of your project, either as a separate file or copied inside your Makefile. The examples in this documentation are based on the recommendation of using a separate file for it.
+The following files in your project are of relevance for achieving this:
 
-### Auto loader
+| File name | Type | Description |
+| --- | --- | --- |
+| `Makefile` | file | Your own Makefile which [includes](https://www.gnu.org/software/make/manual/html_node/Include.html) the `make:utils` loader |
+| `Makeutils-*loader` | file | One of the `make:utils` loader implementations you choose, see next section. |
+| `.makeutils` | folder | Created automatically, cache for storing `make:utils` modules and dependencies, it can be deleted any time |
+| `.gitignore` | file | You want to ignore the `/.makeutils/` folder |
 
-This is the recommended loader. It will automatically detect `curl` or `wget` in your system and use it transparently.
+## Available loaders
 
-Download the file [Makeutils.autoloader](./Makeutils.autoloader) into your project and include it from the Makefile.
+A loader routine is a file you must include in your project for `make:utils` to work. You have a few options to pick from.
 
-```make
-include Makeutils.autoloader
-```
+The difference between the loaders is which HTTP tools they support and how big they are. The more tools they support the bigger they get.
 
-The downside of the auto loader is that it's not a simple one-liner when compared to the specific `curl`/`wget` loaders.
+| Loader file | Lines | Supported tools |
+| --- | --: | --- |
+| [`Makeutils-autoloader`](./Makeutils-autoloader) | 15 | `wget`, `curl` |
+| [`Makeutils-curlloader`](./Makeutils-curlloader) | 4 | `curl` |
+| [`Makeutils-wgetloader`](./Makeutils-wgetloader) | 4 | `wget` |
 
-You may opt to use one of the specific loaders if you know that the environment your Makefile will run can guarantee the presence of your HTTP tool of choice.
-
-### `wget` loader
-
-Download the file [Makeutils.wgetloader](./Makeutils.wgetloader) into your project and include it from the Makefile.
-
-```make
-include Makeutils.wgetloader
-```
-
-### `curl` loader
-
-Download the file [Makeutils.curlloader](./Makeutils.curlloader) into your project and include it from the Makefile.
+Save the file in the same folder where your Makefile resides, either using the original name or something like `Makeutils-loader` and proceed to include it from your Makefile.
 
 ```make
-include Makeutils.curlloader
+include Makeutils-loader
 ```
+
+## TODO
+
+- create dependency file
+- create example project
+- import it
+- run and explain result
+- explain modules
+- explain packages
 
 ## WIP
 
